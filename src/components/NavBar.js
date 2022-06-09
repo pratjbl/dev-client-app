@@ -54,7 +54,7 @@ const NavBar = () => {
       },
     });
   }, [currentValue]);
-  console.log("---->In the Navbar", finalState, currentValue);
+  // console.log("---->In the Navbar", finalState, currentValue);
 
   function useQuery() {
     console.log("in the hook ", useLocation().search);
