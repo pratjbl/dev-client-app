@@ -25,12 +25,33 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = () => {
   const currentValue = useSelector((state) => state.counter.value);
+  const value = useLocation().search;
 
   const [finalState, setFinalState] = useState({});
   useEffect(() => {
+    function UseQuery() {
+      return new URLSearchParams(value);
+    }
+    const AffId = () => {
+      let query = UseQuery();
+      const parsedHash = new URLSearchParams(window.location.hash.substr(1));
+      let culture = query.get("affid") ?? parsedHash.get("affid");
+      return culture;
+    };
+    const Culture = () => {
+      let query = UseQuery();
+      const parsedHash = new URLSearchParams(window.location.hash.substr(1));
+      let culture = query.get("culture") ?? parsedHash.get("culture");
+
+      return culture;
+    };
     setFinalState({
-      culture: currentValue?.culture || "",
-      affid: currentValue?.affid || 0,
+      culture: currentValue?.culture || Culture() || "",
+      affid: currentValue?.affid || AffId() || 0,
+      enableBack: currentValue?.enableBack,
+      enableSkip: currentValue?.enableSkip,
+      hideHeader: currentValue?.hideHeader,
+      hideFooter: currentValue?.hideFooter,
       ui_locales: currentValue?.ui_locales,
       aai: {
         ea: currentValue?.ea || "",
@@ -53,28 +74,8 @@ const NavBar = () => {
         },
       },
     });
-  }, [currentValue]);
-  // console.log("---->In the Navbar", finalState, currentValue);
-
-  function useQuery() {
-    console.log("in the hook ", useLocation().search);
-    return new URLSearchParams(useLocation().search);
-  }
-
-  const Culture = () => {
-    let query = useQuery();
-    const parsedHash = new URLSearchParams(window.location.hash.substr(1));
-    let culture = query.get("culture") ?? parsedHash.get("culture");
-
-    return culture;
-  };
-
-  const AffId = () => {
-    let query = useQuery();
-    const parsedHash = new URLSearchParams(window.location.hash.substr(1));
-    let culture = query.get("affid") ?? parsedHash.get("affid");
-    return culture;
-  };
+  }, [currentValue, value]);
+  console.log("---->In the Navbar", finalState, currentValue);
 
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -137,7 +138,6 @@ const NavBar = () => {
                       loginWithRedirect({
                         ...finalState,
                         aai: JSON.stringify(finalState.aai),
-                        enableSkipButton: true,
                         // affid: AffId(),
                         // fragment: `culture=en-us&aff_id=105`,
                         // &aai=${JSON.stringify(
@@ -196,8 +196,8 @@ const NavBar = () => {
                     block
                     onClick={() =>
                       loginWithRedirect({
-                        culture: Culture(),
-                        affid: AffId(),
+                        ...finalState,
+                        aai: JSON.stringify(finalState.aai),
                       })
                     }
                   >
