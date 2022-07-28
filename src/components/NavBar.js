@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
-import configJson from '../auth_config.json'
+
 import { useLocation } from "react-router-dom";
 
 import {
@@ -83,7 +83,7 @@ const NavBar = () => {
 
   const logoutWithRedirect = () =>
     logout({
-      returnTo: `https://${configJson.domain}/logout?redirectTo=${window.location.origin}`,
+      returnTo: window.location.origin,
     });
 
   return (
