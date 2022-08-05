@@ -83,7 +83,7 @@ const NavBar = () => {
 
   const logoutWithRedirect = () =>
     logout({
-      returnTo: `https://${configJson.domain}/logout?redirectTo=${window.location.origin}`,
+      returnTo: window.location.origin,
     });
 
   return (
