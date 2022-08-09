@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
+<<<<<<< HEAD
 import configJson from "../auth_config.json";
+=======
+>>>>>>> fc9e4aebf3fa0e821654d0cefa71e527964ba10a
 import { useLocation } from "react-router-dom";
 
 import {
@@ -96,11 +99,18 @@ const NavBar = (props) => {
   console.log("---->In the Navbar", finalState, currentValue);
   console.log(configJson.domain);
   const [isOpen, setIsOpen] = useState(false);
+<<<<<<< HEAD
 
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>
     (window.location = `https://iddev.mcafee.com/logout?redirectTo=${window.location.origin}`);
+=======
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const toggle = () => setIsOpen(!isOpen);
+
+  const logoutWithRedirect = () => (window.location.href = `https://iddev.mcafee.com/logout?redirectTo=${window.location.origin}`);
+>>>>>>> fc9e4aebf3fa0e821654d0cefa71e527964ba10a
 
   return (
     <div className="nav-container">
