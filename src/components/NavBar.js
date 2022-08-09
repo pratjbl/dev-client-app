@@ -23,11 +23,25 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-const NavBar = () => {
+const NavBar = (props) => {
   const currentValue = useSelector((state) => state.counter.value);
   const value = useLocation().search;
-
+  const {
+    user,
+    isAuthenticated,
+    loginWithRedirect,
+    getAccessTokenSilently,
+    getIdTokenClaims,
+  } = useAuth0();
   const [finalState, setFinalState] = useState({});
+  const getAccessToken = async () => {
+    if (isAuthenticated) {
+      const data = await getAccessTokenSilently({ detailedResponse: true });
+      const data2 = await getIdTokenClaims();
+      console.log(data2, "access");
+      props.setResponse({ AccessToken: data, IdToken: data2?.__raw });
+    }
+  };
   useEffect(() => {
     function UseQuery() {
       return new URLSearchParams(value);
@@ -75,16 +89,18 @@ const NavBar = () => {
       },
     });
   }, [currentValue, value]);
+  useEffect(() => {
+    getAccessToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   console.log("---->In the Navbar", finalState, currentValue);
   console.log(configJson.domain);
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>
-    logout({
-      returnTo: `https://iddev.mcafee.com/logout?redirectTo=${window.location.origin}`,
-    });
+    (window.location = `https://iddev.mcafee.com/logout?redirectTo=${window.location.origin}`);
 
   return (
     <div className="nav-container">
@@ -123,6 +139,18 @@ const NavBar = () => {
                     activeClassName="router-link-exact-active"
                   >
                     External API
+                  </NavLink>
+                </NavItem>
+              )}
+              {isAuthenticated && (
+                <NavItem>
+                  <NavLink
+                    tag={RouterNavLink}
+                    to="/main-component"
+                    exact
+                    activeClassName="router-link-exact-active"
+                  >
+                    Enroll MFA
                   </NavLink>
                 </NavItem>
               )}
