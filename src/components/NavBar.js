@@ -80,10 +80,7 @@ const NavBar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
 
-  const logoutWithRedirect = () =>
-    logout({
-      returnTo: window.location.origin,
-    });
+  const logoutWithRedirect = () =>   (window.location.href = `https://mcafee-dev.mcafee-dev.auth0.com/logout?redirectTo=${window.location.origin}`);
 
   return (
     <div className="nav-container">
