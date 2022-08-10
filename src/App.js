@@ -34,8 +34,8 @@ const App = () => {
     refreshToken: "",
   });
   const [responseForHomeRoute, setResponse] = useState({
-    AccessToken: "dasdas",
-    IdToken: "d",
+    AccessToken: "",
+    IdToken: "",
   });
   const { isLoading, error } = useAuth0();
   useEffect(() => {

@@ -8,7 +8,6 @@ import { getConfig } from "../../config";
 const config = getConfig();
 
 function MainComponent(props) {
-  console.log(props, "hi");
   // const { setSubscription } = props;
   const [displayDelete] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
@@ -26,7 +25,7 @@ function MainComponent(props) {
   const { user, loginWithRedirect, getAccessTokenSilently } = useAuth0();
   console.log(user);
   let result;
-  console.log(isEnrolled);
+  console.log(isEnrolled, "mfa");
   useEffect(() => {
     const onPageLoadGet = async () => {
       if (user) {
@@ -37,7 +36,7 @@ function MainComponent(props) {
 
         const optionsConn = {
           method: "GET",
-          url: `https://${config.domain}/mfa/authenticators`,
+          url: `https://iddev.mcafee.com/mfa/authenticators`,
           headers: {
             "content-type": "application/json",
             authorization: "Bearer " + token,
@@ -45,7 +44,7 @@ function MainComponent(props) {
         };
 
         const respCon = await axios.request(optionsConn);
-        console.log(respCon);
+        console.log(respCon, "res");
         if (respCon.data && respCon.data.length > 0) {
           setIsEnrolled(false);
         } else {

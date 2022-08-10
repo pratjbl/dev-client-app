@@ -24,6 +24,8 @@ const providerConfig = {
   clientId: "NC9HSwbcmvvXvrdvXymITAuLPw2GHbEW",
   ...(config.audience ? { audience: config.audience } : null),
   redirectUri: window.location.origin,
+  scope:
+    "openid profile email enroll read:authenticators remove:authenticators",
   onRedirectCallback,
 };
 
