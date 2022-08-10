@@ -100,7 +100,7 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>
-    (window.location = `https://iddev.mcafee.com/logout?redirectTo=${window.location.origin}`);
+    (window.location = `https://iddev.mcafee.com/logout?redirectTo=${window.location.origin}&clientId=${configJson.clientId}`);
 
   return (
     <div className="nav-container">
