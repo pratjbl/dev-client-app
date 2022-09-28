@@ -21,6 +21,7 @@ const Home = () => {
     enableSkip: false,
     hideHeader: false,
     hideFooter: false,
+    deviceId: "example_deviceId",
   });
 
   const currentValue = useSelector((state) => state.counter.value);
@@ -31,7 +32,6 @@ const Home = () => {
       addNewKeyValuePair({ key: currentQuery.query, value: currentQuery.value })
     );
   };
-  console.log(currentValue);
   const ChangeLanding = (e) => {
     setCurrentQuery({
       ...currentQuery,
