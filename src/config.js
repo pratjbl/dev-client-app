@@ -13,8 +13,8 @@ export function getConfig() {
       : null;
 
   return {
-    domain: "iddev.mcafee.com",
-    clientId: "NC9HSwbcmvvXvrdvXymITAuLPw2GHbEW",
+    "domain": "idpartner.mcafee.com",
+    "clientId": "88OgStj0qvWnNeAf87YOx0RA1aB0qD72",
     ...(audience ? { audience } : null),
   };
 }

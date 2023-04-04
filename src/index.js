@@ -20,8 +20,8 @@ const onRedirectCallback = (appState) => {
 const config = getConfig();
 
 const providerConfig = {
-  domain: "iddev.mcafee.com",
-  clientId: "NC9HSwbcmvvXvrdvXymITAuLPw2GHbEW",
+  "domain": "idpartner.mcafee.com",
+  "clientId": "88OgStj0qvWnNeAf87YOx0RA1aB0qD72",
   ...(config.audience ? { audience: config.audience } : null),
   redirectUri: window.location.origin,
   scope:
